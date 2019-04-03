@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 98a9d962d126327479bd62de4f202148
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Whitney
+  fontNames:
+  - Whitney
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 114ca13155992f84dbd9b1c40fcd41e3, type: 3}
+  - {fileID: 12800000, guid: 86afc255d9a65aa40ae6178d5e9025e3, type: 3}
+  - {fileID: 12800000, guid: 6eb5678878528a349838f42c8bb430e1, type: 3}
+  - {fileID: 12800000, guid: 892566a8db252fd4899b42b8dbc198c2, type: 3}
+  - {fileID: 12800000, guid: 2b682a8c5116f4b4db99b6629523c21f, type: 3}
+  - {fileID: 12800000, guid: 453e74cdef932ac419ce9df457f40daf, type: 3}
+  - {fileID: 12800000, guid: 0b992c0fa0e139b4f86a20980e4c04e5, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
