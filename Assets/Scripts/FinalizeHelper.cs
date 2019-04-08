@@ -15,9 +15,6 @@ public class FinalizeHelper : MonoBehaviour {
     [SerializeField]
     private InputField nameField;
 
-    [SerializeField]
-    private string url;
-
     private string jsonToBuild;
 
     [SerializeField]
@@ -112,7 +109,7 @@ public class FinalizeHelper : MonoBehaviour {
         jsonBuild.SetActive(true);
         string jsonToPost = nameField.text == "" ? PrepPost(json) : PrepPost(json, nameField.text);
         jsonBuild.SetActive(false);
-        using (UnityWebRequest www = new UnityWebRequest(url + "/scenes"))
+        using (UnityWebRequest www = new UnityWebRequest(ARDesign.Serialize.Utility.URL + "/scenes"))
         {
             www.method = UnityWebRequest.kHttpVerbPOST;
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonToPost);
