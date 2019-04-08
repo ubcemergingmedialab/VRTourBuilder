@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ARDesign.Serialize;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,13 +55,6 @@ public class MarkerCreator : MonoBehaviour
         }
 
 
-        //TODO: implement finalize scene
-        //VariableManager.instance.Test();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

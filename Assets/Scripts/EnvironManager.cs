@@ -22,8 +22,4 @@ public class EnvironManager : MonoBehaviour {
         DontDestroyOnLoad(this);
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

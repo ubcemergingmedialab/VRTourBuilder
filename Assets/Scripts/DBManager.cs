@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ARDesign.Serialize;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,5 @@ public class DBManager : MonoBehaviour {
 	
 	public void OnConfirm () {
         VariableManager.instance.SetBaseVals(host.text, port.text, db.text);
-        //VariableManager.instance.Test();
 	}
 }

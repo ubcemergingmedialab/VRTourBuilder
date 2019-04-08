@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ARDesign.Serialize;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ public class FinalizeHelper : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        jsonOut.text = VariableManager.instance.BuildJSONToString();
+        jsonOut.text = VariableManager.instance.ToString();
 
         serverCommunication.SetActive(false);
         webError.SetActive(false);

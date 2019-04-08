@@ -10,8 +10,4 @@ public class BuildEnviron : MonoBehaviour {
         Destroy(EnvironManager.instance.gameObject);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

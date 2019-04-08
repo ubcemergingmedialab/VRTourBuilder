@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ARDesign.Serialize;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,13 +80,14 @@ public class Widget : MonoBehaviour {
 
 
 
-    public VariableManager.DBWidget Finalize()
+    public DBWidget Finalize()
     {
-        VariableManager.DBWidget toReturn = new VariableManager.DBWidget();
-        toReturn.Building = building;
-        toReturn.Measure = measure;
-        toReturn.Room = room;
-        toReturn.Position = position;
-        return toReturn;
+        return new DBWidget
+        {
+            Building = building,
+            Measure = measure,
+            Room = room,
+            Position = position
+        };
     }
 }
