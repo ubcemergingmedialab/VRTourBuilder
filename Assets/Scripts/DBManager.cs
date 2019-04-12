@@ -24,8 +24,12 @@ public class DBManager : MonoBehaviour {
     private Text host;
     [SerializeField]
     private Text db;
-	
-	public void OnConfirm () {
-        VariableManager.instance.SetBaseVals(host.text, port.text, db.text);
+    [SerializeField]
+    private Text building;
+    [SerializeField]
+    private Text room;
+
+    public void OnConfirm () {
+        VariableManager.instance.SetBaseVals(host.text, port.text, db.text, building.text, room.text);
 	}
 }

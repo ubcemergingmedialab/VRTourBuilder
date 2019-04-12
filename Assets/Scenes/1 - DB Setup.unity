@@ -210,21 +210,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114754859745357702, guid: cb51f991b863a1e418b344fa34dd9ae8,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 820882771}
     - target: {fileID: 114350447627714858, guid: cb51f991b863a1e418b344fa34dd9ae8,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 820882771}
-    - target: {fileID: 223989457677174886, guid: cb51f991b863a1e418b344fa34dd9ae8,
+    - target: {fileID: 114754859745357702, guid: cb51f991b863a1e418b344fa34dd9ae8,
         type: 2}
-      propertyPath: m_Camera
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 947912638}
+      objectReference: {fileID: 820882771}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb51f991b863a1e418b344fa34dd9ae8, type: 2}
   m_IsPrefabParent: 0
@@ -574,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1c4f9bd3829244e8cdea5957d00685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  test: 0
 --- !u!224 &1260313799
 RectTransform:
   m_ObjectHideFlags: 0

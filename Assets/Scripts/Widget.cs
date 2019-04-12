@@ -14,8 +14,8 @@ public class Widget : MonoBehaviour {
 
     private GameObject widObj;
 
-    private string room;
-    private string building;
+
+    private string vals;
     private string measure;
     private Vector3 position;
     private string x;
@@ -51,13 +51,9 @@ public class Widget : MonoBehaviour {
     {
         measure = m;
     }
-    public void UpdateRoom(string r)
+    public void UpdateValues(string v)
     {
-        room = r;
-    }
-    public void UpdateBuilding(string b)
-    {
-        building = b;
+        vals = v;
     }
     public void UpdateX(string x0)
     {
@@ -84,10 +80,9 @@ public class Widget : MonoBehaviour {
     {
         return new DBWidget
         {
-            Building = building,
             Measure = measure,
-            Room = room,
             Position = position
+            //TODO add code seperating vals on comma
         };
     }
 }
