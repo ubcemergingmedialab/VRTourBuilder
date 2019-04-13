@@ -1,6 +1,4 @@
 ﻿using ARDesign.Serialize;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +19,8 @@ public class Widget : MonoBehaviour {
     private string x;
     private string y;
     private string z;
+
+    private static readonly char[] seperators = {' ', ',', '.'};
 
 	// Use this for initialization
 	void Start () {
@@ -81,8 +81,9 @@ public class Widget : MonoBehaviour {
         return new DBWidget
         {
             Measure = measure,
-            Position = position
-            //TODO add code seperating vals on comma
+            Position = position,
+            values = vals.Split(seperators)
         };
     }
+
 }
