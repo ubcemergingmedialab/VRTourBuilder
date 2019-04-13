@@ -1792,8 +1792,9 @@ MonoBehaviour:
     widget locations will be based on this origin. Press origin confirm when you've
     finished setting the origin\n2) Return to VR, and tag locations of all widgets
     (ie. where the IoT enabled devide sits in the room). \n3) Exit VR - Now you can
-    adjust position and database details to each widget on the main display\n4) Press
-    Confirm when done"
+    adjust position and database details to each widget on the main display\nNote
+    - Make sure to enter values as a comma seperated list!\n4) Press Confirm when
+    done"
 --- !u!222 &222087135098438710
 CanvasRenderer:
   m_ObjectHideFlags: 1
