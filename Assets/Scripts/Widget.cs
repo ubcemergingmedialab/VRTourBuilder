@@ -82,7 +82,7 @@ public class Widget : MonoBehaviour {
         {
             Measure = measure,
             Position = position,
-            values = vals.Split(seperators)
+            Values = vals.Split(seperators)
         };
     }
 
