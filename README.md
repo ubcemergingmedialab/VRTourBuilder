@@ -1,2 +1,2 @@
-# ARDesign-setup
-Unity project for building a scene for the AR Design project
+# VRTourBuilder
+Unity project for building an interactive VR choose-your-own-adventure-style tour
