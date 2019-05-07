@@ -1,4 +1,4 @@
-﻿using ARDesign.Serialize;
+﻿using VRTour.Serialize;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,17 +19,9 @@ public class DBManager : MonoBehaviour {
     }
 
     [SerializeField]
-    private Text port;
-    [SerializeField]
-    private Text host;
-    [SerializeField]
-    private Text db;
-    [SerializeField]
-    private Text building;
-    [SerializeField]
-    private Text room;
+    private Text nameLabel;
 
     public void OnConfirm () {
-        VariableManager.instance.SetBaseVals(host.text, port.text, db.text, building.text, room.text);
+        VariableManager.instance.SetBaseVals(nameLabel.text);
 	}
 }

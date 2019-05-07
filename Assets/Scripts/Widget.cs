@@ -1,89 +1,127 @@
-﻿using ARDesign.Serialize;
+﻿using VRTour.Serialize;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Widget : MonoBehaviour {
-    [SerializeField]
-    private InputField xText;
-    [SerializeField]
-    private InputField yText;
-    [SerializeField]
-    private InputField zText;
+namespace VRTour
+{
+    public class Widget : MonoBehaviour
+    {
+        [SerializeField]
+        private InputField xText;
+        [SerializeField]
+        private InputField yText;
+        [SerializeField]
+        private InputField zText;
+        [SerializeField]
+        private InputField xRText;
+        [SerializeField]
+        private InputField yRText;
+        [SerializeField]
+        private InputField zRText;
 
-    private GameObject widObj;
+        private GameObject nodeObj;
 
 
-    private string vals;
-    private string measure;
-    private Vector3 position;
-    private string x;
-    private string y;
-    private string z;
+        private string question;
+        private Vector3 position;
+        private Vector3 rotation;
+        private string x;
+        private string y;
+        private string z;
+        private string xR;
+        private string yR;
+        private string zR;
 
-    private static readonly char[] seperators = {' ', ',', '.'};
+        //private static readonly char[] seperators = { ' ', ',', '.' };
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
-		if(widObj != null && position != widObj.transform.localPosition)
+        // Update is called once per frame
+        void LateUpdate()
         {
-            position = widObj.transform.localPosition;
+            if (nodeObj != null && position != nodeObj.transform.localPosition)
+            {
+                position = nodeObj.transform.localPosition;
+                rotation = nodeObj.transform.rotation.eulerAngles;
+                xText.text = position.x.ToString();
+                yText.text = position.y.ToString();
+                zText.text = position.z.ToString();
+
+                xRText.text = rotation.x.ToString();
+                yRText.text = rotation.y.ToString();
+                zRText.text = rotation.z.ToString();
+            }
+        }
+
+        public void SetWidgetObj(GameObject wid)
+        {
+            nodeObj = wid;
+            position = wid.transform.localPosition;
+            rotation = wid.transform.rotation.eulerAngles;
             xText.text = position.x.ToString();
             yText.text = position.y.ToString();
             zText.text = position.z.ToString();
+
+            xRText.text = rotation.x.ToString();
+            yRText.text = rotation.y.ToString();
+            zRText.text = rotation.z.ToString();
         }
-	}
 
-    public void SetWidgetObj(GameObject wid)
-    {
-        widObj = wid;
-        position = wid.transform.localPosition;
-        xText.text = position.x.ToString();
-        yText.text = position.y.ToString();
-        zText.text = position.z.ToString();
-    }
+        //UnityEvent code
 
-    //UnityEvent code
-    public void UpdateMeasure(string m)
-    {
-        measure = m;
-    }
-    public void UpdateValues(string v)
-    {
-        vals = v;
-    }
-    public void UpdateX(string x0)
-    {
-        x = x0;
-        float.TryParse(x, out position.x);
-        widObj.transform.localPosition = position;
-    }
-    public void UpdateY(string y0)
-    {
-        y = y0;
-        float.TryParse(y, out position.y);
-        widObj.transform.localPosition = position;
-    }
-    public void UpdateZ(string z0)
-    {
-        z = z0;
-        float.TryParse(z, out position.z);
-        widObj.transform.localPosition = position;
-    }
-
-
-
-    public DBWidget Finalize()
-    {
-        return new DBWidget
+        public void UpdateX(string x0)
         {
-            Measure = measure,
-            Position = position,
-            Values = vals.Split(seperators)
-        };
+            x = x0;
+            float.TryParse(x, out position.x);
+            nodeObj.transform.localPosition = position;
+        }
+        public void UpdateY(string y0)
+        {
+            y = y0;
+            float.TryParse(y, out position.y);
+            nodeObj.transform.localPosition = position;
+        }
+        public void UpdateZ(string z0)
+        {
+            z = z0;
+            float.TryParse(z, out position.z);
+            nodeObj.transform.localPosition = position;
+        }
+
+        public void UpdateXRot(string x0)
+        {
+            xR = x0;
+            float.TryParse(xR, out rotation.x);
+            nodeObj.transform.rotation = Quaternion.Euler(rotation);
+        }
+        public void UpdateYRot(string y0)
+        {
+            yR = y0;
+            float.TryParse(yR, out rotation.y);
+            nodeObj.transform.rotation = Quaternion.Euler(rotation);
+        }
+        public void UpdatezRot(string z0)
+        {
+            zR = z0;
+            float.TryParse(zR, out rotation.z);
+            nodeObj.transform.rotation = Quaternion.Euler(rotation);
+        }
+
+        public void UpdateLabel(string q)
+        {
+            question = q;
+        }
+
+        public Node Finalize(int id)
+        {
+            return new Node
+            {
+                nodeId = id,
+                label = question,
+                position = position,
+                rotation = rotation
+            };
+        }
+
     }
 
 }
+

@@ -1,4 +1,4 @@
-﻿//========= Copyright 2016-2018, HTC Corporation. All rights reserved. ===========
+﻿//========= Copyright 2016-2019, HTC Corporation. All rights reserved. ===========
 
 using UnityEngine;
 using HTC.UnityPlugin.Vive;
@@ -85,6 +85,9 @@ namespace HTC.UnityPlugin.VRModuleManagement
 
         public static int GetUnityAxisIdByIndex(int index) { return index + 1; }
 #endif
+
+        public override int moduleIndex { get { return (int)VRModuleActiveEnum.UnityNativeVR; } }
+
         public override bool ShouldActiveModule() { return VIUSettings.activateUnityNativeVRModule && XRSettings.enabled; }
 
         public override void Update()
@@ -194,6 +197,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
             var xPress = GetUnityButton(2);
             var yPress = GetUnityButton(3);
             var stickPress = GetUnityButton(8);
+            var gripPress = GetUnityButton(4);
             var xTouch = GetUnityButton(12);
             var yTouch = GetUnityButton(13);
             var triggerTouch = GetUnityButton(14);
@@ -208,16 +212,20 @@ namespace HTC.UnityPlugin.VRModuleManagement
             currState.SetButtonPress(VRModuleRawButton.A, xPress);
             currState.SetButtonPress(VRModuleRawButton.Touchpad, stickPress);
             currState.SetButtonPress(VRModuleRawButton.Trigger, AxisToPress(prevState.GetButtonPress(VRModuleRawButton.Trigger), trigger, 0.55f, 0.45f));
-            currState.SetButtonPress(VRModuleRawButton.Grip, grip >= 1.0f);
+            currState.SetButtonPress(VRModuleRawButton.Grip, gripPress);
+            currState.SetButtonPress(VRModuleRawButton.CapSenseGrip, gripPress);
 
             currState.SetButtonTouch(VRModuleRawButton.ApplicationMenu, yTouch);
             currState.SetButtonTouch(VRModuleRawButton.A, xTouch);
             currState.SetButtonTouch(VRModuleRawButton.Touchpad, stickTouch);
             currState.SetButtonTouch(VRModuleRawButton.Trigger, triggerTouch);
+            currState.SetButtonTouch(VRModuleRawButton.Grip, grip >= 0.05f);
+            currState.SetButtonTouch(VRModuleRawButton.CapSenseGrip, grip >= 0.05f);
 
             currState.SetAxisValue(VRModuleRawAxis.TouchpadX, stickX);
             currState.SetAxisValue(VRModuleRawAxis.TouchpadY, -stickY);
             currState.SetAxisValue(VRModuleRawAxis.Trigger, trigger);
+            currState.SetAxisValue(VRModuleRawAxis.CapSenseGrip, grip);
         }
 
         private static void Update_R_OculusTouch(IVRModuleDeviceState prevState, IVRModuleDeviceStateRW currState)
@@ -225,6 +233,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
             var aPress = GetUnityButton(0);
             var bPress = GetUnityButton(1);
             var stickPress = GetUnityButton(9);
+            var gripPress = GetUnityButton(5);
             var aTouch = GetUnityButton(10);
             var bTouch = GetUnityButton(11);
             var triggerTouch = GetUnityButton(15);
@@ -239,16 +248,20 @@ namespace HTC.UnityPlugin.VRModuleManagement
             currState.SetButtonPress(VRModuleRawButton.A, aPress);
             currState.SetButtonPress(VRModuleRawButton.Touchpad, stickPress);
             currState.SetButtonPress(VRModuleRawButton.Trigger, AxisToPress(prevState.GetButtonPress(VRModuleRawButton.Trigger), trigger, 0.55f, 0.45f));
-            currState.SetButtonPress(VRModuleRawButton.Grip, grip >= 1.0f);
+            currState.SetButtonPress(VRModuleRawButton.Grip, gripPress);
+            currState.SetButtonPress(VRModuleRawButton.CapSenseGrip, gripPress);
 
             currState.SetButtonTouch(VRModuleRawButton.ApplicationMenu, bTouch);
             currState.SetButtonTouch(VRModuleRawButton.A, aTouch);
             currState.SetButtonTouch(VRModuleRawButton.Touchpad, stickTouch);
             currState.SetButtonTouch(VRModuleRawButton.Trigger, triggerTouch);
+            currState.SetButtonTouch(VRModuleRawButton.Grip, grip >= 0.05f);
+            currState.SetButtonTouch(VRModuleRawButton.CapSenseGrip, grip >= 0.05f);
 
             currState.SetAxisValue(VRModuleRawAxis.TouchpadX, stickX);
             currState.SetAxisValue(VRModuleRawAxis.TouchpadY, -stickY);
             currState.SetAxisValue(VRModuleRawAxis.Trigger, trigger);
+            currState.SetAxisValue(VRModuleRawAxis.CapSenseGrip, grip);
         }
 
         private static void Update_L_Knuckles(IVRModuleDeviceState prevState, IVRModuleDeviceStateRW currState)

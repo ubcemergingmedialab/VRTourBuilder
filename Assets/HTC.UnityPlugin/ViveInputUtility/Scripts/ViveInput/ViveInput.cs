@@ -1,4 +1,4 @@
-﻿//========= Copyright 2016-2018, HTC Corporation. All rights reserved. ===========
+﻿//========= Copyright 2016-2019, HTC Corporation. All rights reserved. ===========
 
 using HTC.UnityPlugin.Utility;
 using HTC.UnityPlugin.VRModuleManagement;
@@ -153,7 +153,7 @@ namespace HTC.UnityPlugin.Vive
         [SerializeField]
         private float m_clickInterval = 0.3f;
         [SerializeField]
-        private bool m_dontDestroyOnLoad = true;
+        private bool m_dontDestroyOnLoad = false;
         [SerializeField]
         private UnityEvent m_onUpdate = new UnityEvent();
 

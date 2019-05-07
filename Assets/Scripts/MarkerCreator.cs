@@ -1,20 +1,21 @@
-﻿using ARDesign.Serialize;
+﻿using VRTour;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTour.Serialize;
 
 public class MarkerCreator : MonoBehaviour
 {
-    public List<Widget> listOfWidgets;
+    public List<Widget> listOfNodes;
 
     [SerializeField]
     private GameObject marker;
     [SerializeField]
-    private GameObject widget;
+    private GameObject node;
     [SerializeField]
     private GameObject originObj;
     [SerializeField]
-    private GameObject widgetPaneObj;
+    private GameObject nodePaneObj;
 
     private Transform origin;
 
@@ -26,32 +27,34 @@ public class MarkerCreator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        listOfWidgets = new List<Widget>();
+        listOfNodes = new List<Widget>();
         origin = originObj.transform;
     }
 
     public void CreateObject(GameObject controller)
     {
-        GameObject newMarker = Instantiate(marker, controller.transform.position, new Quaternion(0f,0f,0f,0f));
+        GameObject newMarker = Instantiate(marker, controller.transform.position, controller.transform.rotation);
         newMarker.transform.SetParent(origin);
 
-        GameObject newWidget = Instantiate(widget, widgetPaneObj.transform);
-        Vector3 position = newWidget.transform.localPosition;
+        GameObject newNode = Instantiate(node, nodePaneObj.transform);
+        Vector3 position = newNode.transform.localPosition;
         position.y = initY;
         initY = initY + deltaY;
-        newWidget.transform.localPosition = position;
+        newNode.transform.localPosition = position;
 
-        Widget wid = newWidget.GetComponent<Widget>();
-        wid.SetWidgetObj(newMarker);
+        Widget n = newNode.GetComponent<Widget>();
+        n.SetWidgetObj(newMarker);
 
-        listOfWidgets.Add(wid);
+        listOfNodes.Add(n);
     }
 
     public void FinalizeWidgets()
     {
-        foreach(Widget wid in listOfWidgets)
+        int id = 0;
+        foreach(Widget wid in listOfNodes)
         {
-            VariableManager.instance.AddWidget(wid.Finalize());
+            VariableManager.instance.AddWidget(wid.Finalize(id));
+            id++;
         }
 
 

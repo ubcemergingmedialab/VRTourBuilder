@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32f11d107b6b554ebdfbc1ac141574a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listOfWidgets: []
+  listOfNodes: []
   marker: {fileID: 1397889139656230, guid: 0bc95c8395459de45be1809ff545b976, type: 2}
-  widget: {fileID: 1388106858748130, guid: 51bb75aad59f2e240abca94688bebde0, type: 2}
+  node: {fileID: 1388106858748130, guid: 51bb75aad59f2e240abca94688bebde0, type: 2}
   originObj: {fileID: 0}
-  widgetPaneObj: {fileID: 0}
+  nodePaneObj: {fileID: 0}
   initY: 180
   deltaY: -80

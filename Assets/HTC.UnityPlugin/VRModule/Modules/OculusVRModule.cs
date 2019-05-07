@@ -1,8 +1,8 @@
-﻿//========= Copyright 2016-2018, HTC Corporation. All rights reserved. ===========
+//========= Copyright 2016-2019, HTC Corporation. All rights reserved. ===========
 
+using HTC.UnityPlugin.Utility;
 #if VIU_OCULUSVR
 using UnityEngine;
-using HTC.UnityPlugin.Utility;
 using HTC.UnityPlugin.Vive;
 #if UNITY_2017_2_OR_NEWER
 using UnityEngine.XR;
@@ -14,8 +14,20 @@ using XRSettings = UnityEngine.VR.VRSettings;
 
 namespace HTC.UnityPlugin.VRModuleManagement
 {
+    public partial class VRModule : SingletonBehaviour<VRModule>
+    {
+        public static readonly bool isOculusVRPluginDetected =
+#if VIU_OCULUSVR
+            true;
+#else
+            false;
+#endif
+    }
+
     public sealed class OculusVRModule : VRModule.ModuleBase
     {
+        public override int moduleIndex { get { return (int)VRModuleActiveEnum.OculusVR; } }
+
 #if VIU_OCULUSVR
         public const int VALID_NODE_COUNT = 7;
         private static readonly OVRPlugin.Node[] s_index2node;
@@ -141,7 +153,8 @@ namespace HTC.UnityPlugin.VRModuleManagement
                 // update device connected state
                 if (!prevState.isConnected)
                 {
-                    var ovrProductName = OVRPlugin.productName;
+                    var platform = OVRPlugin.GetSystemHeadsetType();
+                    var ovrProductName = platform.ToString();
                     var deviceClass = s_node2class[(int)node];
 
                     currState.isConnected = true;
@@ -149,7 +162,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
                     // FIXME: how to get device id from OVRPlugin?
                     currState.modelNumber = ovrProductName + " " + deviceClass;
                     currState.renderModelName = ovrProductName + " " + deviceClass;
-                    currState.serialNumber = ovrProductName + " " + deviceClass;
+                    currState.serialNumber = ovrProductName + " " + node;
 
                     switch (deviceClass)
                     {
@@ -160,15 +173,26 @@ namespace HTC.UnityPlugin.VRModuleManagement
                             currState.deviceModel = VRModuleDeviceModel.OculusSensor;
                             break;
                         case VRModuleDeviceClass.Controller:
-                            switch (ovrProductName)
+                            switch (platform)
                             {
-                                case "Oculus Go":
+                                case OVRPlugin.SystemHeadset.Oculus_Go:
                                     currState.deviceModel = VRModuleDeviceModel.OculusGoController;
+                                    currState.input2DType = VRModuleInput2DType.TouchpadOnly;
                                     break;
-                                case "Gear VR":
+
+                                case OVRPlugin.SystemHeadset.GearVR_R320:
+                                case OVRPlugin.SystemHeadset.GearVR_R321:
+                                case OVRPlugin.SystemHeadset.GearVR_R322:
+                                case OVRPlugin.SystemHeadset.GearVR_R323:
+                                case OVRPlugin.SystemHeadset.GearVR_R324:
+                                case OVRPlugin.SystemHeadset.GearVR_R325:
                                     currState.deviceModel = VRModuleDeviceModel.OculusGearVrController;
+                                    currState.input2DType = VRModuleInput2DType.TouchpadOnly;
                                     break;
-                                case "Oculus Rift":
+
+                                case OVRPlugin.SystemHeadset.Rift_DK1:
+                                case OVRPlugin.SystemHeadset.Rift_DK2:
+                                case OVRPlugin.SystemHeadset.Rift_CV1:
                                 default:
                                     switch (node)
                                     {
@@ -180,6 +204,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
                                             currState.deviceModel = VRModuleDeviceModel.OculusTouchRight;
                                             break;
                                     }
+                                    currState.input2DType = VRModuleInput2DType.JoystickOnly;
                                     break;
                             }
                             break;
@@ -211,6 +236,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
                             currState.SetButtonTouch(VRModuleRawButton.A, (ctrlState.Touches & (uint)OVRInput.RawTouch.X) != 0u);
                             currState.SetButtonTouch(VRModuleRawButton.Touchpad, (ctrlState.Touches & (uint)OVRInput.RawTouch.LThumbstick) != 0u);
                             currState.SetButtonTouch(VRModuleRawButton.Trigger, (ctrlState.Touches & (uint)OVRInput.RawTouch.LIndexTrigger) != 0u);
+                            currState.SetButtonTouch(VRModuleRawButton.Grip, AxisToPress(currState.GetButtonTouch(VRModuleRawButton.Grip), ctrlState.LHandTrigger, 0.25f, 0.20f));
                             currState.SetButtonTouch(VRModuleRawButton.CapSenseGrip, AxisToPress(currState.GetButtonTouch(VRModuleRawButton.CapSenseGrip), ctrlState.LHandTrigger, 0.25f, 0.20f));
 
                             currState.SetAxisValue(VRModuleRawAxis.TouchpadX, ctrlState.LThumbstick.x);
@@ -234,6 +260,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
                             currState.SetButtonTouch(VRModuleRawButton.A, (ctrlState.Touches & (uint)OVRInput.RawTouch.A) != 0u);
                             currState.SetButtonTouch(VRModuleRawButton.Touchpad, (ctrlState.Touches & (uint)OVRInput.RawTouch.RThumbstick) != 0u);
                             currState.SetButtonTouch(VRModuleRawButton.Trigger, (ctrlState.Touches & (uint)OVRInput.RawTouch.RIndexTrigger) != 0u);
+                            currState.SetButtonTouch(VRModuleRawButton.Grip, AxisToPress(currState.GetButtonTouch(VRModuleRawButton.Grip), ctrlState.RHandTrigger, 0.25f, 0.20f));
                             currState.SetButtonTouch(VRModuleRawButton.CapSenseGrip, AxisToPress(currState.GetButtonTouch(VRModuleRawButton.CapSenseGrip), ctrlState.RHandTrigger, 0.25f, 0.20f));
 
                             currState.SetAxisValue(VRModuleRawAxis.TouchpadX, ctrlState.RThumbstick.x);

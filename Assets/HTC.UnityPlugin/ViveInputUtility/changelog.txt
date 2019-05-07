@@ -1,8 +1,64 @@
-﻿# Vive Input Utility for Unity - v1.10.1
-Copyright (c) 2016-2018, HTC Corporation. All rights reserved.
+﻿# Vive Input Utility for Unity - v1.10.4
+Copyright (c) 2016-2019, HTC Corporation. All rights reserved.
 
 
-## Changes for v1.10.1
+## Changes for v1.10.4:
+
+* Improvement
+  - Replace WWW to UnityWebRequest
+  - Pointer3DInputModule no longer set EventSystem to DontDestroyOnLoad
+  - Add VRModuleInput2DType
+  - Split VIUSettings into partials
+  - Add VIVE Cosmos controller enum
+  - Improve OculusVR support
+  - Add install package button in VIUSettings
+  - Add WaveVR SDK 3.0.2 support
+  - Add autoScaleReticle setting
+
+* Bug Fix
+  - [OculusVRModule] Fix serial number conflict on Oculus device
+  - [UnityEngineVRModule] Fix input manager index out of bound
+  - [SteamVRModule] Fix swapping controllers will cause input events showing on wrong device
+  - [WaveVRModule] Fix left hand mode cannot show controller model
+  - [ExampleScene] Fix BodyRole center position transformation
+  - [ExampleScene] Fix ResetButton teleports if moved after Start()
+
+
+## Changes for v1.10.3:
+
+* Improvement
+  - [WaveVRModule] Support WaveVR simulator (Enable VIVE Focus support in Editor mode)
+
+* Bug Fix
+  - [WaveVRModule] Fix WaveVR tracking glitter issue
+  - [WaveVRModule] Fix VIU simulator cannot launch (ONLY enable VIU simulator)
+
+
+## Changes for v1.10.2:
+
+* Improvement
+  - [ViveInput] Add new procedure vibration API (only works with SteamVR v2)
+```csharp
+using HTC.UnityPlugin.Vive;
+ViveInput.TriggerHapticVibrationEx<TRole>(
+      TRole role,
+      float durationSeconds = 0.01f,
+      float frequency = 85f,
+      float amplitude = 0.125f,
+      float startSecondsFromNow = 0f)
+```
+
+* Bug Fix
+  - [ViveInput] Fix issue that TriggerHapticPulse is not working
+  - [Utility] Fix bug in IndexedSet indexer setter.
+  - [WaveVRModule] Fix VIU example freezes after launched
+  - [OculusVRModule] Fix OculusVRModule not recognizing GearVR or OculusGO correctly
+  - [ExternalCamera] Fix not working with SteamVR v2
+  - [ExternalCamera] Fix SteamVR_ExternalCamera setting sceneResolutionScale incorrectly in some cases
+  - [ExternalCamera] Fix potential RenderTexture created by SteamVR_ExternalCamera having incorrect ColorSpace
+
+
+## Changes for v1.10.1:
 
 * New Features
   - SteamVR Plugin v2.0/v2.1 support
@@ -35,7 +91,7 @@ Copyright (c) 2016-2018, HTC Corporation. All rights reserved.
     - DPadLowerLeftTouch
 
 * Known Issue
-  - When working with SteamVR Plugin v2, VIU can get poses or send vibration pulses for all connected devices, but only able to connect button inputs from up to 2 Vive Controllers or 10 Vive Trackers (due to the limitation of SteamVR input sources). This is a recent limitation introduced by SteamVR issue.
+  - When working with SteamVR Plugin v2, VIU can get poses or send vibration pulses for all connected devices, but only able to connect button inputs from up to 2 Vive Controllers or 10 Vive Trackers (due to the limitation of SteamVR input sources). If you know how to work around, please let us know.
 
 
 ## Changes for v1.9.0:

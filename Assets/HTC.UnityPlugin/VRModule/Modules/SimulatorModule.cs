@@ -1,4 +1,4 @@
-﻿//========= Copyright 2016-2018, HTC Corporation. All rights reserved. ===========
+﻿//========= Copyright 2016-2019, HTC Corporation. All rights reserved. ===========
 
 using HTC.UnityPlugin.Vive;
 using HTC.UnityPlugin.Utility;
@@ -42,6 +42,8 @@ namespace HTC.UnityPlugin.VRModuleManagement
         public event Action onActivated;
         public event Action onDeactivated;
         public event UpdateDeviceStateHandler onUpdateDeviceState;
+
+        public override int moduleIndex { get { return (int)VRModuleActiveEnum.Simulator; } }
 
         public uint selectedDeviceIndex { get; private set; }
 
@@ -410,6 +412,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
                         deviceState.modelNumber = deviceState.serialNumber;
                         deviceState.renderModelName = deviceState.serialNumber;
                         deviceState.deviceModel = VRModuleDeviceModel.ViveController;
+                        deviceState.input2DType = VRModuleInput2DType.TouchpadOnly;
 
                         var pose = new RigidPose(new Vector3(0.3f, -0.25f, 0.7f), Quaternion.identity);
                         deviceState.isPoseValid = true;
@@ -428,6 +431,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
                         deviceState.modelNumber = deviceState.serialNumber;
                         deviceState.renderModelName = deviceState.serialNumber;
                         deviceState.deviceModel = VRModuleDeviceModel.ViveController;
+                        deviceState.input2DType = VRModuleInput2DType.TouchpadOnly;
 
                         var pose = new RigidPose(new Vector3(-0.3f, -0.25f, 0.7f), Quaternion.identity);
                         deviceState.isPoseValid = true;
