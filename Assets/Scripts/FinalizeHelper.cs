@@ -42,7 +42,7 @@ public class FinalizeHelper : MonoBehaviour {
     IEnumerator WebRequest(string json)
     {
 
-        using (UnityWebRequest www = Publisher.SendScene(nameField.text, json))
+        using (UnityWebRequest www = Publisher.SendTour(nameField.text, json))
         {
             serverCommunication.SetActive(true);
 
