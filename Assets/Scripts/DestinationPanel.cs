@@ -49,5 +49,15 @@ public class DestinationPanel : MonoBehaviour {
 
     }
 
+    public Node Finalize()
+    {
+        activeNode.answers = new Destination[answers.Count];
+        for(int i = 0; i <answers.Count; i++)
+        {
+            activeNode.answers[i] = answers[i].Finalize();
+        }
+        return activeNode;
+    }
+
 
 }

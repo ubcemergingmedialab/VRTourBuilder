@@ -14,13 +14,13 @@ public class GraphBuilder : MonoBehaviour {
     private GameObject destPrefab;
 
     private RectTransform back;
-    private IDictionary<int, DestinationPanel> nodes;
+    private IList<DestinationPanel> nodes;
     private float offset;
 
     // Use this for initialization
     void Start () {
         back = contentPanel.GetComponent<RectTransform>();
-        nodes = new Dictionary<int, DestinationPanel>();
+        nodes = new List<DestinationPanel>();
         numNodes.text = VariableManager.instance.GetNumNodes().ToString();
         offset = 0;
 
@@ -30,8 +30,13 @@ public class GraphBuilder : MonoBehaviour {
         }
 	}
 	
-	public void Submit () {
-        VariableManager.instance.Finalize(nodes);
+	public void Submit() {
+        List<Node> toBuild = new List<Node>();
+        foreach(DestinationPanel dp in nodes)
+        {
+            toBuild.Add(dp.Finalize());
+        }
+        VariableManager.instance.SetNodes(toBuild.ToArray());
 	}
 
     private void AddNode(Node n)
@@ -43,7 +48,7 @@ public class GraphBuilder : MonoBehaviour {
         GameObject dest = Instantiate(destPrefab, contentPanel);
         DestinationPanel nodePanel = dest.GetComponent<DestinationPanel>();
         nodePanel.Setup(n);
-        nodes[n.nodeId] = nodePanel;
+        nodes.Add(nodePanel);
         RectTransform destTransform = dest.GetComponent<RectTransform>();
         destTransform.anchoredPosition = new Vector2(0, -offset);
         offset += destTransform.sizeDelta.y;

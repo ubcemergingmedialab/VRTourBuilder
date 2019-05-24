@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VRTour.Serialize;
 
 public class Answer : MonoBehaviour {
 
@@ -11,12 +12,12 @@ public class Answer : MonoBehaviour {
     [SerializeField]
     private InputField id;
 
-    public int GetID()
+    public Destination Finalize()
     {
-        return int.Parse(id.text);
-    }
-    public string GetLabel()
-    {
-        return label.text;
-    }
+        return new Destination
+        {
+            label = label.text,
+            dest = int.Parse(id.text)
+    };
+    } 
 }
