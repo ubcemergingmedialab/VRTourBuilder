@@ -18,29 +18,31 @@ public class MarkerCreator : MonoBehaviour
     private GameObject nodePaneObj;
 
     private Transform origin;
+    private RectTransform back;
 
-    [SerializeField]
-    private float initY = 100.0f;
-    [SerializeField]
-    private float deltaY = -80.0f;
+    private float offset = 0;
 
     // Use this for initialization
     void Start()
     {
         listOfNodes = new List<Widget>();
+        back = nodePaneObj.GetComponent<RectTransform>();
         origin = originObj.transform;
     }
 
     public void CreateObject(GameObject controller)
     {
+        if(offset >= back.sizeDelta.y)
+        {
+            back.sizeDelta = new Vector2(back.sizeDelta.x, back.sizeDelta.y * 2);
+        }
         GameObject newMarker = Instantiate(marker, controller.transform.position, controller.transform.rotation);
         newMarker.transform.SetParent(origin);
 
         GameObject newNode = Instantiate(node, nodePaneObj.transform);
-        Vector3 position = newNode.transform.localPosition;
-        position.y = initY;
-        initY = initY + deltaY;
-        newNode.transform.localPosition = position;
+        RectTransform rt = newNode.GetComponent<RectTransform>();
+        rt.anchoredPosition = new Vector2(0, -offset);
+        offset += rt.sizeDelta.y;
 
         Widget n = newNode.GetComponent<Widget>();
         n.SetWidgetObj(newMarker);
