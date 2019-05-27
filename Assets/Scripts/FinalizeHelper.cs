@@ -23,7 +23,7 @@ public class FinalizeHelper : MonoBehaviour {
     [SerializeField]
     private GameObject success;
     [SerializeField]
-    private Text successText;
+    private InputField successText;
 
 
     // Use this for initialization
@@ -62,7 +62,8 @@ public class FinalizeHelper : MonoBehaviour {
                 Debug.Log(jsonResponse);
                 string id = (string)JObject.Parse(jsonResponse).SelectToken("id");
                 Debug.Log(id);
-                successText.text = string.Concat("Success!! ID is ", id);
+                successText.text = id;
+                successText.readOnly = true;
                 success.SetActive(true);
                 serverCommunication.SetActive(false);
             }
